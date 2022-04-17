@@ -4,17 +4,17 @@ create table marksheet (roll_no number(3) references student(roll_no),sub_1 numb
 desc student;
 
  Name                  Null?            Type
- ---------------------- ---------------- ----------------------------
-ROLL_NO           NOT NULL    NUMBER(3)
+ ---------------- ---------------- ----------------------------
+ROLL_NO              NOT NULL             NUMBER(3)
 S_NAME                                    VARCHAR2(20)
-S_ADDRESS                               VARCHAR2(30)
+S_ADDRESS                                 VARCHAR2(30)
 
 
 desc marksheet;
 
  Name                  Null?            Type
  ---------------------- ---------------- ----------------------------
-ROLL_NO                             NUMBER(3)
+ROLL_NO                                 NUMBER(3)
 SUB_1                                   NUMBER(10)
 SUB_2                                   NUMBER(10)
 SUB_3                                   NUMBER(10)
@@ -27,11 +27,11 @@ insert into student values(3,'saurav','nalachira');
 select * from student;
 
 
- roll_no  s_name  s_address  
+ roll_no      s_name      s_address  
  ---------   -----------  -------------------
        1     rahul          pattom     
-       2     sachin        ambalamukk 
-       3     saurav       nalachira  
+       2     sachin         ambalamukk 
+       3     saurav         nalachira  
 
 insert into marksheet values(1,78,89,94);
 insert into marksheet values(2,54,65,77);
@@ -40,7 +40,7 @@ insert into marksheet values(3,23,78,46);
 select * from marksheet;
 
 
- roll_no    sub_1   sub_2    sub_3 
+ roll_no        sub_1      sub_2    sub_3 
 ------------  ---------  ---------  ----------------
        1          78         89       94 
        2          54         65       77 
@@ -51,12 +51,12 @@ a. add an extra column grade to marksheet table.
 desc marksheet;
 
  Name                  Null?            Type
- ---------------------- ---------------- ----------------------------
-ROLL_NO                             NUMBER(3)
+ ----------------- ---------------- ----------------------------
+ROLL_NO                                 NUMBER(3)
 SUB_1                                   NUMBER(10)
 SUB_2                                   NUMBER(10)
 SUB_3                                   NUMBER(10)
-GRADE                                  VARCHAR2(10)
+GRADE                                   VARCHAR2(10)
 
 
 b. remove sub_2 column from marksheet table.
@@ -65,10 +65,10 @@ desc marksheet;
 
  Name                  Null?            Type
  ---------------------- ---------------- ----------------------------
-ROLL_NO                             NUMBER(3)
+ROLL_NO                                 NUMBER(3)
 SUB_1                                   NUMBER(10)
 SUB_2                                   NUMBER(10)
-GRADE                                  VARCHAR2(10)
+GRADE                                   VARCHAR2(10)
 
 
 c. add an extra column phone_no to student(it should contain only 10 numbers).
@@ -77,30 +77,30 @@ c. add an extra column phone_no to student(it should contain only 10 numbers).
 desc student;
 
  Name                  Null?            Type
- ---------------------- ---------------- ----------------------------
-ROLL_NO           NOT NULL    NUMBER(3)
-S_NAME                                    VARCHAR2(20)
-S_ADDRESS                              VARCHAR2(30)
-PHONE_NO                               NUMBER(10)
+ ----------------- ---------------- ----------------------------
+ROLL_NO               NOT NULL          NUMBER(3)
+S_NAME                                  VARCHAR2(20)
+S_ADDRESS                               VARCHAR2(30)
+PHONE_NO                                NUMBER(10)
 
       update student set phone_no=1234567890 where roll_no=1;
       update student set phone_no=1234567899 where roll_no=2;
       update student set phone_no=1234567800 where roll_no=3;
 select * from student;
 
- roll_no  s_name  s_address            phone_no
+ roll_no      s_name      s_address            phone_no
  ---------   -----------  -------------------  --------------------------------
        1     rahul          pattom               1234567890
-       2     sachin        ambalamukk     1234567899
-       3     saurav       nalachira            1234567800
+       2     sachin         ambalamukk           1234567899
+       3     saurav         nalachira            1234567800
 
 
 d. student staying at pattom.
 	 select * from student where s_address='pattom';
 
-roll_no   s_name  s_address  phone_no
+roll_no      s_name      s_address       phone_no
 -----------  ----------- --------------- ---------------------
-1             rahul      pattom      1234567890 
+1             rahul       pattom           1234567890 
  
 
 e. total mark of roll_no 2.
