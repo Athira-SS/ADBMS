@@ -1,0 +1,211 @@
+1)create tables
+
+create table ssstudent(stud_id number(5) primary key,name varchar(10),class varchar(5),city varchar(15),total_mark number(5),percentage varchar(10), dept_id number(5));
+create table staffs(staff_id number(5) primary key,name varchar(10),dept_id number(5),designation varchar(15),salary number(20),city varchar(10));
+create table departments(dept_id number(5) primary key,name varchar(20));
+create table companys(comp_id number(5) primary key,name varchar(10),city varchar(15),no_of_employees number(5));
+create table employees(emp_id number(5) primary key,name varchar(10),comp_id number(5) references companys(comp_id),designation varchar(20),salary number(20),city varchar(10));
+
+
+ desc studentss;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUD_ID                                   NOT NULL NUMBER(5)
+ NAME                                               VARCHAR2(10)
+ CLASS                                              VARCHAR2(5)
+ CITY                                               VARCHAR2(15)
+ TOTAL_MARK                                         NUMBER(5)
+ PERCENTAGE                                         FLOAT(126)
+ DEPT_ID                                            NUMBER(5)
+
+
+
+ desc staffs;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STAFF_ID                                  NOT NULL NUMBER(5)
+ NAME                                               VARCHAR2(10)
+ DEPT_ID                                            NUMBER(5)
+ DESIGNATION                                        VARCHAR2(15)
+ SALARY                                             NUMBER(20)
+ CITY                                               VARCHAR2(10)
+
+ desc departments;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPT_ID                                   NOT NULL NUMBER(5)
+ NAME                                               VARCHAR2(20)
+
+desc companys;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COMP_ID                                   NOT NULL NUMBER(5)
+ NAME                                               VARCHAR2(10)
+ CITY                                               VARCHAR2(15)
+ NO_OF_EMPLOYEES                                    NUMBER(5)
+
+ desc employees;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_ID                                    NOT NULL NUMBER(5)
+ NAME                                               VARCHAR2(10)
+ COMP_ID                                            NUMBER(5)
+ DESIGNATION                                        VARCHAR2(20)
+ SALARY                                             NUMBER(20)
+ CITY                                               VARCHAR2(10)
+
+
+2.a)insert values to the table.
+
+
+insert into ssstudent values(100,'zara','s1','tvm',90,'90%',101);
+insert into ssstudent values(101,'yanan','s2','malapuram',100,'100%',102);
+insert into ssstudent values(102,'anu','s3','kollam',80,'80%',103);
+insert into ssstudent values(103,'vivan','s4','kannur',70,'70%',104);
+insert into ssstudent values(104,'binu','s5','kottayam',50,'50%',105);
+
+
+
+select * from ssstudent;
+
+   STUD_ID NAME       CITY            TOTAL_MARK PERCENTAGE    DEPT_ID
+---------- ---------- --------------- ---------- ---------- ----------
+CLASS
+----------
+       100 zara       tvm                     90 90%               101
+mca
+
+       101 yanan      malapuram              100 100%              102
+mba
+
+       102 anu        kollam                  80 80%               103
+mtec
+
+
+   STUD_ID NAME       CITY            TOTAL_MARK PERCENTAGE    DEPT_ID
+---------- ---------- --------------- ---------- ---------- ----------
+CLASS
+----------
+       103 vivan      kannur                  70 70%               104
+btech
+
+       104 binu       kottayam                50 50%               105
+mech
+
+
+
+insert into staffs values(200,'ziva',101,'professor',20000,'tvm');
+insert into staffs values(201,'yash',102,'associate professor',100000,'kollam');
+insert into staffs values(202,'anila',103,'lab assistant',10000,'kannur');
+insert into staffs values(203,'vinay',104,'staff advisor',70000,'kottayam');
+insert into staffs values(204,'biji',105,'hod',200000,'eranakulam');
+
+select * from staffs;
+
+ STAFF_ID NAME          DEPT_ID DESIGNATION         SALARY CITY
+--------- ---------- ---------- --------------- ---------- ----------
+      200 ziva              101 professor            20000 tvm
+      202 anila             103 lab assistant        10000 kannur
+      203 vinay             104 staff advisor        70000 kottayam
+      204 biji              105 hod                 200000 eranakulam
+
+
+insert into departments values(101,'mca');
+insert into departments values(102,'mba');
+insert into departments values(103,'mtech');
+insert into departments values(104,'btech');
+insert into departments values(105,'mech');
+
+select * from departments;
+
+   DEPT_ID NAME
+---------- --------------------
+       101 mca
+       102 mba
+       103 mtech
+       104 btech
+       105 mech
+
+insert into companys values(300,'infopark','tvm',5);
+insert into companys values(301,'technopark','kannur',3);
+insert into companys values(302,'wipro','kottayam',2);
+insert into companys values(303,'tcs','earnakulam',10);
+insert into companys values(304,'infosys','kollam',7);
+
+select * from companys;
+
+  COMP_ID NAME       CITY            NO_OF_EMPLOYEES
+--------- ---------- --------------- ---------------
+      300 infopark   tvm                           5
+      301 technopark kannur                        3
+      302 wipro      kottayam                      2
+      303 tcs        earnakulam                   10
+      304 infosys    kollam                        7
+
+
+insert into employees values(400,'siva',300,'tester',20000,'kollam');
+insert into employees values(401,'janu',301,'programmer',40000,'kannur');
+insert into employees values(402,'deva',302,'coordinator',60000,'kottayam');
+insert into employees values(403,'jinu',303,'pjct_manager',80000,'tvm');
+insert into employees values(404,'deepu',304,'manager',100000,'earnakulam');
+
+
+
+select * from employees;
+
+    EMP_ID NAME          COMP_ID DESIGNATION              SAL
+---------- ---------- ---------- -------------------- -------
+       400 siva              300 tester                    20
+       401 janu              301 programmer                40
+       402 deva              302 coordinator               60
+       403 jinu              303 pjct_manager              80
+       404 deepu             304 manager                  100
+
+
+2.b)display all student details sorted on department wise.
+	select * from ssstudent order by dept_id;
+
+select * from ssstudent order by dept_id;
+
+ STUD_ID NAME       CLASS CITY            TOTAL_MARK PERCENTAGE    DEPT_ID
+-------- ---------- ----- --------------- ---------- ---------- ----------
+     100 zara       s1    tvm                     90 90%               101
+     101 yanan      s2    malapuram              100 100%              102
+     102 anu        s3    kollam                  80 80%               103
+     103 vivan      s4    kannur                  70 70%               104
+     104 binu       s5    kottayam                50 50%               105
+
+
+2.c)display all employees
+	select * from employees;
+
+   EMP_ID NAME          COMP_ID DESIGNATION              SALARY CITY
+--------- ---------- ---------- -------------------- ---------- ----------
+      400 siva              300 tester                    20000 kollam
+      401 janu              301 programmer                40000 kannur
+      402 deva              302 coordinator               60000 kottayam
+      403 jinu              303 pjct_manager              80000 tvm
+      404 deepu             304 manager                  100000 earnakulam
+
+
+2.d)display all staff details whose salary>20000.
+	select * from staffs where salary>20000;
+
+ STAFF_ID NAME          DEPT_ID DESIGNATION         SALARY CITY
+--------- ---------- ---------- --------------- ---------- ----------
+      203 vinay             104 staff advisor        70000 kottayam
+      204 biji              105 hod                 200000 eranakulam
+
+
+2.e)display students details whose percentage>70 and lessthan 80.
+	select name,percentage from ssstudent where percentage between '70%' and '80%';
+
+NAME       PERCENTAGE
+---------- ----------
+anu        80%
+vivan      70%
+
+
+3.a)display students who belonging to mca pepartment.
+	select * from ssstudent,departments where ssstudent.dept_id=departments.dept_id and departments.name='mca';
+create view empdsg as select salary+salary*.01 as newsal,designation from employees where designation='manager';
