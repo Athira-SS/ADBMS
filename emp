@@ -208,4 +208,14 @@ vivan      70%
 
 3.a)display students who belonging to mca pepartment.
 	select * from ssstudent,departments where ssstudent.dept_id=departments.dept_id and departments.name='mca';
-create view empdsg as select salary+salary*.01 as newsal,designation from employees where designation='manager';
+8)create a view on employee table whose designation is manager  and update the salary of such employees by 10.5% without changing the salary in employee table
+       create view empdsg as select salary+salary*.01 as newsal,designation from employees where designation='manager';
+
+       View created.
+
+select * from empdsg;
+
+    NEWSAL DESIGNATION
+---------- ----------------
+    101000 manager
+
