@@ -130,21 +130,21 @@ select * from passenger;
        404        700 ram                40 female     1234554345
 
 
-insert into cancellation values(600,'2-jan-2020',1,1234567890);
-insert into cancellation values(601,'9-feb-2020',1,1234567878);
-insert into cancellation values(602,'8-mar-2020',1,1234567834);
-insert into cancellation values(603,'7-nov-2020',1,1234567845);
-insert into cancellation values(604,'10-oct-2019',2,1234432123);
+insert into cancellation values(400,'2-jan-2020',1,1234567890);
+insert into cancellation values(401,'9-feb-2020',1,1234567878);
+insert into cancellation values(402,'8-mar-2020',1,1234567834);
+insert into cancellation values(403,'7-nov-2020',1,1234567845);
+insert into cancellation values(404,'10-oct-2019',2,1234432123);
 
 select * from cancellation;
 
     PNR_NO JOURNY_DA    SEAT_NO CONTACT_NO
 ---------- --------- ---------- ----------
-       600 02-JAN-20          1 1234567890
-       601 09-FEB-20          1 1234567878
-       602 08-MAR-20          1 1234567834
-       603 07-NOV-20          1 1234567845
-       604 10-OCT-19          2 1234432123
+       400 02-JAN-20          1 1234567890
+       401 09-FEB-20          1 1234567878
+       402 08-MAR-20          1 1234567834
+       403 07-NOV-20          1 1234567845
+       404 10-OCT-19          2 1234432123
 
 
 a. display ticket number and name of all passengers.
@@ -177,11 +177,11 @@ sarath             35
 ram                40
 
 g.find all the passenger who cancelled ticket on 10.10.2019.
-	select * from cancellation where journy_date='10-oct-2019';
+	select * from cancellation,passenger where passenger.pnr_no=cancellation.pnr_no and journy_date='10-oct-19';
 
-    PNR_NO JOURNY_DA    SEAT_NO CONTACT_NO
----------- --------- ---------- ----------
-       604 10-OCT-19          2 1234432123
+    NAME
+---------- 
+    ram
 
 h.display the sorted list nof passenger name.
 	select count(sex) from ticket where bus_no=200;
