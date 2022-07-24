@@ -1,0 +1,195 @@
+create table BOOKS(
+BOOKID INT PRIMARY KEY,
+TITLE VARCHAR2(20),
+COST NUMBER(7,2) CHECK (COST>0)
+);
+
+CREATE TABLE AUTHORS(
+BOOKID REFERENCES BOOKS(BOOKID),
+AUTHOR VARCHAR2(10)
+);
+
+
+CREATE TABLE USERS(
+USERID INT PRIMARY KEY,
+NAME VARCHAR2(10),
+CATEGORY INT
+);
+
+CREATE TABLE CIRCULATION(
+USERID REFERENCES USERS(USERID),
+BOOKID REFERENCES BOOKS(BOOKID),
+ISSUEDATE DATE,
+RECEIPTDATE DATE
+);
+
+
+INSERT INTO BOOKS VALUES ('1001', 'Harry Potter',
+'500');
+INSERT INTO BOOKS VALUES ('1002', 'Goosebumps',
+'285');
+INSERT INTO BOOKS VALUES ('1003', 'Fighting
+Fantasy', '625');
+INSERT INTO BOOKS VALUES ('1004', 'Sherlock
+Holmes', '267');
+
+
+INSERT INTO AUTHORS VALUES ('1003', 'Ullman');
+INSERT INTO AUTHORS VALUES ('1004', 'Ullman');
+INSERT INTO AUTHORS VALUES ('1001', 'JK Rowling');
+INSERT INTO AUTHORS VALUES ('1002', 'Steve');
+
+INSERT INTO USERS VALUES ('2001', 'Dalvin',1);
+INSERT INTO USERS VALUES ('2002', 'Don',2);
+INSERT INTO USERS VALUES ('2003', 'Richu',3);
+
+
+INSERT INTO CIRCULATION VALUES (2003, 1002, '11-Jun-2022','09-JUL-2022');
+INSERT INTO CIRCULATION VALUES (2001, 1003, '12-JUN-2022', '08-JUL-2022');
+INSERT INTO CIRCULATION VALUES (2002,1004,'13-JUN-2022','15-JUN-2022');
+
+1)Find the titles of books where ULLMAN is an author
+2)Find the usernames of all users who have not returned books costing above rs 300
+3)Find titles of books issued to users of category 3 costing avbove rs 300
+4)Find titles of books due to be returned. RECEIPTDATE can be 15 days after
+ISSUEDATE.
+
+1)select title from books,authors where authors.bookid=books.bookid and author='Ullman';
+
+
+2)select name from users,circulation,books where users.userid=circulation.userid and circulation.bookid=books.bookid and cost>300;
+
+3)select title from books,circulation,users where books.bookid=circulation.bookid and circulation.userid=users.userid and users.category=3 and books.cost>300;
+
+4)select title from books,circulation where books.bookid=circulation.bookid and issuedate+15<sysdate;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+create table employy(empid number(10) primary key,empname varchar(10),dep varchar(10) references empd(dep),phoneno number(15),emailid varchar(15),ehd number(10));
+create table empd(dep varchar(10) primary key,depname varchar(10),dep_off varchar(10),dephead number(10));
+create table emps(empid number(10) references employy(empid),salary number(10),isp varchar(10));
+create table proj(pid varchar(10) primary key,duration number(10));
+create table emprr(empid number(10) references employy(empid),pid varchar(10) references proj(pid),cid varchar(10),year number(10),endyear number(10));
+
+insert into empd values('e101','hr','monday',105);
+insert into empd values('e102','dev','teusday',101);
+ insert into empd values('e103','hous','saturday',103);
+ insert into empd values('e104','sales','sunday',104);
+ insert into empd values('e105','pur','tuesday',104);
+
+insert into employy values(101,'isha','e101',1234567890,'isha@gmail.com',105);
+insert into employy values(102,'priya','e104',1234567899,'priya@gmail.com',103);
+insert into employy values(103,'neha','e101',1234567898,'neha@gmail.com',101);
+insert into employy values(104,'rahul','e102',1234567897,'rah@gmail.com',105);
+insert into employy values(105,'abhishek','e101',1234565890,'abh@gmail.com',102);
+
+insert into emps values(101,2000,'yes');
+insert into emps values(102,10000,'yes');
+insert into emps values(103,5000,'no');
+insert into emps values(104,1900,'yes');
+insert into emps values(105,2300,'yes');
+
+insert into proj values('p1',23);
+insert into proj values('p2',15);
+insert into proj values('p3',45);
+insert into proj values('p4',2);
+insert into proj values('p5',30);
+
+insert into emprr values(101,'p1','c1',2010,2010);
+insert into emprr values(102,'p2','c2',2010,2012);
+insert into emprr values(103,'p3','c3',2010,null);
+insert into emprr values(104,'p4','c4',2014,2015);
+insert into emprr values(105,'p5','c5',2015,null);
+
+1. Select the detail of the employee whose name start with P.
+2. How many permanent candidate take salary more than 5000.
+3. Select the detail of employee whose emailId is in gmail.
+4. Select the details of the employee who work either for department E-104 or E102.
+5. What is the department name for DeptID E-102?
+6. What is total salary that is paid to permanent employees?
+7. List name of all employees whose name ends with a.
+8. How many project started in year 2010.
+9. How many project started and finished in the same year.
+10. Select the name of the employee whose name's 3rd character is 'h'
+11. Select the department name of the company which is assigned to the
+employee whose employee id is greater than 103.
+12. Select the name of the employee who is working under Abhishek.
+13. Select the name of the employee who is department head of HR.
+14. Select the employee whose department off is Monday.
+15. Select the details of all employees working in development department.
+
+
+1)select * from employy where empname like 'p%';
+2)select  count(isp) from emps where salary>5000;
+3)select * from employy where emailid like '%gmail%';
+4)select * from employy where dep in('e102','e104');
+5)select depname from empd where dep='e102';
+6)select sum(salary) from emps where isp='yes';
+7)select empname from employy where empname like '%a';
+8)select count(pid) from emprr where year=2010;
+9)select count(pid) from emprr where year=endyear;
+10)select * from employy where empname like '__h%';
+11)select depname from empd where dep in(select dep from employy where empid>103);
+12)select empname from employy where ehd =(select empid from employy where empname='abhishek');
+13)select empname from employy where empid=(select dephead from empd where depname='hr');
+14)select * from employy where dep in(select dep from empd where dep_off='monday'); 
+ 15)select * from employy where dep in(select dep from empd where depname='dev');
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+create table emppp(id number(10) primary key,name varchar(10),age number(10),addr varchar(15),salary float);
+
+insert into emppp values(1,'john',20,'us',2000.0);
+insert into emppp values(2,'step',26,'dubai',1500.0);
+insert into emppp values(3,'davi',27,'bank',2000.0);
+insert into emppp values(4,'alina',29,'uk',6500.0);
+insert into emppp values(5,'kathi',34,'bank',8500.0);
+insert into emppp values(6,'harry',42,'china',4500.0);
+insert into emppp values(7,'jackop',25,'mizoram',10000.0);
+
+1) Write a SQL statement to display the details of employees who are getting more
+than 4500 asSALARY.
+2) Write a SQL statement to copy the complete Employee table in to newly created
+Employee_BKPtable.
+3) Write a SQL statement to update the Employee_BKP table in which Salary by 0.25
+times in theEmployee table for all employee whose Age is greater than or equal to 29.
+4) Write a SQL statement to delete the records from Employee table for all Employee
+whose age isgreater than or equal to 29.
+
+1) SELECT*FROM emppp WHERE id IN (SELECT id FROM
+emppp WHERE salary > 4500);
+2)step1) create table emppp_bkp(id number(10) primary key,name varchar(10),age number(10),addr varchar(15),salary float);
+   step2)insert into emppp_bkp select * from emppp;
+   step3)select * from emppp_bkp;
+3) update emppp_bkp set salary=salary*0.25 where age in(select age from emppp where age>29);
+4)DELETE FROM emppp WHERE age IN (SELECT age FROM
+emppp_bkp WHERE age >= 29 );
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+create table office(oid number(10) primary key,name varchar(10),address varchar(10),hours number(5),d date);
+
+insert into office values(1,'a','m',12,'24-jan-2021');
+insert into office values(2,'d','l',10,'24-jan-2021');
+insert into office values(3,'v','f',5,'25-jan-2021');
+insert into office values(4,'r','l',4,'25-jan-2021');
+insert into office values(5,'a','m',9,'26-jan-2021');
+insert into office values(6,'d','l',5,'26-jan-2021');
+insert into office values(7,'v','f',12,'27-jan-2021');
+insert into office values(9,'r','l',10,'27-jan-2021');
+
+1) Write a SQL statement to display how many officers are from the same city.
+2) Write a SQL statement to display officer_name and total working hours of each officers
+fromofficers table.
+3) Write a SQL statement to display minimum working hours of each officers from officer
+table.
+4) Write a SQL statement to display maximum working hours of each officers from officer
+table.
+5) Write a SQL statement to display average working hours of each officers from officer table.
+6) Write a SQL statement to display Total working hours of each officers having more
+than 5hours from officer table.
+
+
+ select address,count(*) from office GROUP BY address;
+select name,sum(hours) AS "total hours" FROM office GROUP BY name;
+select name ,min(hours) AS "max hours" from office GROUP BY name;
+select name ,max(hours) AS "max hours" from office GROUP BY name;
+select name,avg(hours) AS "avg hours" from office GROUP BY name;
+select name,sum(hours) AS "total working hours" from office GROUP BY name HAVING sum(hours)>5;
+
